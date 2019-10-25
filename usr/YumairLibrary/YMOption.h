@@ -1,0 +1,46 @@
+#ifndef YM_OPTION_H
+#define YM_OPTION_H
+
+#define YM_FIRMWARE_VERSION_LEN 4 //x.x.x.x
+#define YM_DEVICE_MODEL_STRLEN  8 //"xxxxxxxx"
+
+#ifndef YM_DEVICE_UID_MAX_LEN  //SIM卡ICCID号，便于后台查话费
+#define YM_DEVICE_UID_MAX_LEN 20
+#endif // !YM_DEVICE_UID_MAX_LEN
+
+#ifndef YM_DEVICE_ID_LEN  //设备ID长度
+#define YM_DEVICE_ID_LEN 16
+#endif // !YM_DEVICE_ID_LEN
+
+#ifndef YM_DEVICE_PASSWD_LEN  //设备PIN码长度
+#define YM_DEVICE_PASSWD_LEN 8
+#endif // !YM_DEVICE_PASSWD_LEN
+
+#ifndef YM_MEMERY_LIMIT_ENABLE  //内存限制
+#define YM_MEMERY_LIMIT_ENABLE 0
+#endif // !YM_MEMERY_LIMIT_ENABLE
+
+
+#ifndef YM_OPTION_TCP_CONNECT_SUPPORT_URL //socket是否支持通过域名连接
+#define YM_OPTION_TCP_CONNECT_SUPPORT_URL 1 
+#endif // !YM_OPTION_TCP_CONNECT_SUPPORT_URL
+
+#ifndef YM_OPTION_ENABLE_LOG_PRINT //日志打印开关
+#define YM_OPTION_ENABLE_LOG_PRINT 1
+#endif // !YM_OPTION_ENABLE_LOG_PRINT
+
+#ifndef YM_RESUME_TRANSFER_ENABLE //断点续传开关
+#define YM_RESUME_TRANSFER_ENABLE 1
+#endif // !YM_RESUME_TRANSFER_ENABLE
+
+#ifndef YM_OTA_ENABLE //是否支持OTA升级
+#define YM_OTA_ENABLE 1
+#endif // !YM_OTA_ENABLE
+
+#ifndef YM_SLAVE_SERVER_ENABLE //从服务器
+#define YM_SLAVE_SERVER_ENABLE 0
+#endif // !YM_SLAVE_SERVER_ENABLE
+
+
+#endif // !YM_OPTION_H
+

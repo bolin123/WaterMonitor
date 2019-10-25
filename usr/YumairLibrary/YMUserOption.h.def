@@ -1,0 +1,100 @@
+#ifndef YM_USER_OPTION_H
+#define YM_USER_OPTION_H
+
+#ifndef _funcTag
+#define _funcTag 
+#endif
+
+/*主、从服务器地址信息*/
+#define YM_MASTER_SERVER_URL "server.yumair.cn"  //服务器域名
+#define YM_MASTER_SERVER_PORT 10067              //端口号
+
+/*系统日期时间结构体*/
+#define YmTime_t YmUint32_t
+
+struct YMDateTime_st;
+/*获取系统日期时间定义
+* 若不适用库文件日期时间，需定义YM_GET_SYS_DATE_TIME宏函数
+* 参数：无。
+* 返回值：struct YMDateTime_st * 日期指针
+* eg. 
+* struct YMDateTime_st *YourSystemGetDateTimeFunction(void);
+* #define YM_GET_SYS_DATE_TIME YourSystemGetDateTimeFunction
+*/
+#ifndef YM_GET_SYS_DATE_TIME
+#define YM_USE_YUMAIR_DATE_TIME 1
+struct YMDateTime_st *YMGetSysDateTime(void); //获取系统时间
+#define YM_GET_SYS_DATE_TIME YMGetSysDateTime
+#endif // !YM_GET_SYS_DATE_TIME
+
+/*断点续传
+* 支持断点续传，需要实现发送失败消息的存取功能
+*/
+#if YM_RESUME_TRANSFER_ENABLE
+/*更新内容
+* 每次重新登录时检查断点续传的文件内容
+*/
+#define YM_RETRANS_UPDATE_INFO() //TODO:
+
+/*保存消息
+* 保存发送失败的消息
+* @id:socket ID，@message：消息字符串
+* 成功返回长度，失败返回负值
+*/
+#define YM_RETRANS_SAVE_LOST_DATA(id, message) //TODO:
+
+/*读取一条存储的消息
+* 从保存的消息从读取一条
+* @id:socket ID，@buff：读取内容到buff，@bufflen：buff的最大长度
+* 成功返回长度，失败返回负值
+*/
+#define YM_RETRANS_LOAD_NEXT_DATA(id, buff, bufflen)
+
+/*删除当前消息
+* 删除掉最近读取的一条消息
+* @id:socket ID
+* 成功返回0，失败返回负值
+*/
+#define YM_RETRANS_DEL_CURRENT_DATA(id)
+#endif // YM_RESUME_TRANSFER_ENABLE
+
+/*OTA升级相关*/
+#if YM_OTA_ENABLE
+
+/*擦除升级区域
+* @size:要擦除的大小
+*/
+#define YM_OTA_SECTIONS_ERASE(size) //TODO:
+
+/*写升级数据
+* @offset:地址偏移量，@data:数据内容，@wlen：数据长度
+*/
+#define YM_OTA_DATA_WRITE(offset, data, wlen) //TODO:
+
+/*读取升级数据
+* @offset:地址偏移量，@data:数据内容，@rlen：读取的长度
+*/
+#define YM_OTA_DATA_READ(offset, data, rlen)  //TODO:
+
+/*保存升级信息
+* @info:升级信息（YMOTAInfo_t *），len：长度
+*/
+#define YM_OTA_INFO_SAVE(info, len) //TODO:
+#endif // YM_OTA_ENABLE
+
+
+YmTime_t YMSysTime(void); //当前时间戳
+#define YMSysTimeHasPast(lastTime, pastTime) (YMSysTime() - (lastTime) > (pastTime)) //时间比较函数
+
+/*输出日志*/
+#if YM_OPTION_ENABLE_LOG_PRINT
+#define YMPrint //TODO: 定义系统打印函数 eg. printf
+#define YMLog(...) YMPrint("%s[%d]:", __FUNCTION__, __LINE__);YMPrint(__VA_ARGS__);YMPrint("\n")
+#else
+#define YMPrint
+#define YMLog(...)
+#endif // YM_OPTION_ENABLE_LOG_PRINT
+
+#endif // !YM_USER_OPTION_H
+
+
